@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+  <link rel='shortcut icon' type='image/x-icon' href='resources/images/favicon.ico'>
+  <link rel="stylesheet" href="resources/css/all.css">
+  <link rel="stylesheet" href="resources/css/animate.css">
+  <link rel="stylesheet" href="resources/css/hover.css">
+  <link rel="stylesheet" href="resources/css/aos.css">
+  <link rel="stylesheet" href="resources/css/mouse-follower.min.css">
+  <link rel="stylesheet" href="resources/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="resources/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="resources/css/stylesheet.css">
+
+  <!-- fonts -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto&display=swap"
+    rel="stylesheet">
+  <title>React App</title>
+</head>
+
+<body>
+  <div class="loader">
+    <div id="loaderImage"></div>
+  </div>
+
+  <a href="javascript:void(0);" id="back-to-top" class="background-btn back_to_top show hvr-float" title="Go to top">
+    <i class="fas fa-angle-up" aria-hidden="true"></i>
+  </a>
+  <div id="root"></div>
+
+  <script src="resources/js/jquery.min.js"></script>
+  <script src="resources/js/bootstrap.bundle.min.js"></script>
+  <script src="resources/js/aos.js"></script>
+  <script src="resources/js/loader.js"></script>
+  <script src="resources/js/mouse-follower.min.js"></script>
+  <script src="resources/js/gsap.js"></script>
+  <script src="resources/js/owl.carousel.min.js"></script>
+
+
+  <script>
+
+    // aos
+    AOS.init();
+
+
+    // back to top
+    if ($('#back-to-top').length) {
+      var scrollTrigger = 100, // px
+        backToTop = function () {
+          var scrollTop = $(window).scrollTop();
+          if (scrollTop > scrollTrigger) {
+            $('#back-to-top').addClass('show');
+          } else {
+            $('#back-to-top').removeClass('show');
+          }
+        };
+      backToTop();
+      $(window).on("scroll", function () {
+        backToTop();
+      });
+      $('#back-to-top').on("click", function (e) {
+        e.preventDefault();
+        $('html,body').animate({
+          scrollTop: 0
+        }, 700);
+      });
+    }
+
+
+    // mouse follower
+    const cursor = new MouseFollower({
+      className: 'mf-cursor'
+    });
+
+    // counter script
+    var a = 0;
+
+    $(window).scroll(function () {
+      var oTop = $('.section-c').offset().top - window.innerHeight;
+
+      if (a == 0 && $(window).scrollTop() > oTop) {
+        $('.counter-value').each(function () {
+          var $this = $(this),
+            countTo = $this.attr('data-count');
+
+          $({
+            countNum: $this.text()
+          }).animate({
+            countNum: countTo
+          }, {
+            duration: 3500,
+            easing: 'swing',
+            step: function () {
+              $this.text(Math.floor(this.countNum));
+            },
+            complete: function () {
+              $this.text(this.countNum);
+              //alert('finished');
+            }
+          });
+        });
+
+        a = 1;
+      }
+    });
+
+    // parallex effect
+
+    var b = document.getElementsByTagName("BODY")[0];
+
+    b.addEventListener("mousemove", function (event) {
+      parallaxed(event);
+
+    });
+
+    function parallaxed(e) {
+      var amountMovedX = (e.clientX * -0.3 / 8);
+      var amountMovedY = (e.clientY * -0.3 / 8);
+      var x = document.getElementsByClassName("parallaxed");
+      var i;
+      for (i = 0; i < x.length; i++) { x[i].style.transform = 'translate(' + amountMovedX + 'px,' + amountMovedY + 'px)' }
+    }
+  </script>
+
+  <script>
+    // slider counter
+    $(document).ready(function () {
+      var count = $(".carousel-indicators button").length;
+      $(".result").text(count);
+    });
+
+  </script>
+</body>
+
+</html>
